@@ -24,6 +24,16 @@ void variation(int* nums, unsigned int pos, const unsigned int k, const unsigned
 	for (unsigned int i = 0; i < n; ++i) {
 		if (used[i]) continue;
 
+		// Проверка по стойност: дали nums[i] вече е в текущата комбинация (var[0..pos-1])
+		bool found = false;
+		for (unsigned int j = 0; j < pos; ++j) {
+			if (var[j] == nums[i]) {
+				found = true;
+				break;
+			}
+		}
+		if (found) continue;
+
 		var[pos] = nums[i];
 		used[i] = true;
 		variation(nums, pos + 1, k, n, var, used);
@@ -35,7 +45,7 @@ void main() {
 	const unsigned int SIZE = 6;
 	const unsigned int k = 4;
 
-	int nums[SIZE] = { 1, 2, 3, 4, 5, 6 };
+	int nums[SIZE] = { 1, 2, 1, 1, 5, 6 };
 	int var[k];
 	bool used[SIZE] = { false };
 
